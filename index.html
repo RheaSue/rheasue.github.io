@@ -36,6 +36,10 @@
 <head>
     <!-- /** 将视口宽度设为与设备宽度相同 */ -->
     <meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+    <!-- <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache"> -->
     <title>reCAPTCHA</title>
     <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
     <script src="https://azentreprise.org/download/custom-recaptcha.min.js"></script>
@@ -56,9 +60,26 @@
             transform: translate(-50%, -50%);
         }
 
+        #closeButtonIOS {
+            position: absolute;
+            width: 45px;
+            height: 20px;
+            border-radius:50%;
+            border: none;
+            top: calc(50% - 60px);
+            right: calc(50% - 172px);
+            transform: translate(-50%, -50%);
+        }
+
         @media screen and (max-width: 304px) {
             #g_recaptcha {
                 transform: translate(-50%, -50%) scale(0.85);
+            }
+
+            #closeButtonIOS {
+                top: calc(50% - 60px);
+                right: calc(50% - 172px);
+                transform: translate(-50%, -50%);
             }
         }
     </style>
@@ -70,24 +91,33 @@
 
     <script type="text/javascript">
 
-        // console.log = function (message) {
-        //     post({ log: message });
-        // };
-
-        // "action": "didLoad"
-        // "token": ${token}
-        // "error": "Callback is expired!"
-        // "error": "error-callback"
-
         console.log('注意,现在这个提示出现时,网页内容还是一片空白');
 
         window.onload = function() {
             console.log('页面加载完毕,window.onload发动!');
-            // didLoadCallback()
+            didLoadCallback()
         }
 
         console.log('上一行代码为window.onload属性赋值了一个函数,但只是赋值,目前什么事都不会发生');
 
+
+        let ran = navigator.userAgent, app = navigator.appVersion
+        let isIOS = !!ran.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+        let isAndroid = ran.indexOf('Android') > -1 || ran.indexOf('Linux') > -1
+
+        const addIOSCloseButton = function() {
+            if (isIOS) {
+                var input = window.document.createElement('input')
+                input.type = "button"
+                input.value = "close"
+                input.id = "closeButtonIOS"
+                input.addEventListener('click', function() {
+                    clickCloseWindowCallback()
+                }, false)
+                window.document.body.appendChild(input)
+            }
+        }
+        
         function findGetParameter(parameterName) {
             var result = null,
                 tmp = []
@@ -101,11 +131,12 @@
             return result
         }
 
-        var widget;
+        var isCallbackError = false;
         var onloadCallback = function () {
-            didLoadCallback()
             console.log("grecaptcha is ready!")
-            var sitekey = '6LfRa4khAAAAAF3Jf__4a_z1AZHMcse4GXj4dxf'//findGetParameter("site_key")//'6LfRa4khAAAAAF3Jf__4a_z1AZHMcse4GXj4dxfk' //findGetParameter("site_key")
+
+            isCallbackError = false;
+            var sitekey = findGetParameter("site_key")//'6LfRa4khAAAAAF3Jf__4a_z1AZHMcse4GXj4dxfk'//findGetParameter("site_key")
 
             grecaptcha.render('g_recaptcha', {
                 'sitekey': sitekey,
@@ -116,7 +147,7 @@
                     expiredCallback()
                 },
                 "error-callback": function () {
-                    errorCallback()
+                    isCallbackError = true; // 为了避免在 didload callback 之前回调造成设备端(ios)显示异常
                 },
                 'size': 'normal', //尺寸规则，有normal与compact两个值可选
                 'theme': 'light' //主题设置，有light与black两个值可选
@@ -134,6 +165,18 @@
                     if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1])
                 })
             return result
+        }
+
+        // 页面关闭事件 (暂时只为 iOS 使用)
+        function clickCloseWindowCallback() {
+            let value = "closePage"
+            
+            try { // iOS 适用
+                // window.webkit.messageHandlers.xxxxxx.postMessage  这里的.xxxxxx是iOS那边定义的类,可以随便定义,但这里必须要跟iOS那边统一
+                window.webkit.messageHandlers.recaptchaClosePage.postMessage(value);
+            } catch (e) {
+                console.log("iOS Is Null")
+            }
         }
 
         // 页面加载完成
@@ -154,7 +197,12 @@
                 console.log("android Is Null")
             }
 
-            window.close()
+            if (isCallbackError) {
+                errorCallback()
+                isCallbackError = false;
+            } else {
+                window.close()
+            }
         }
 
         // 人机验证 回调 token
