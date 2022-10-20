@@ -1,0 +1,24 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    
+        {
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "Open index.html",
+            "file": "/Users/hitron/Documents/Learning/rheasue.github.io/index.html"
+        },
+
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Open forceSimulation.html",
+            "url": "http://172.28.31.239:8083",
+            "webRoot": "${workspaceFolder}",
+            "file": "/Users/hitron/Documents/Learning/rheasue.github.io/forceSimulation.html"
+        }
+    ]
+}
