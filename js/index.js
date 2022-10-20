@@ -132,7 +132,7 @@ function Topology(option) {
         if (!source._expanded) {
             return 16
         }
-        var distance = 180
+        var distance = 160
         distance += distance * Math.random() * 0.5
         return distance
     }).charge(function (d) {
@@ -181,30 +181,6 @@ function getZoomBehavior(d) {
  */
 function getDragBehavior(force) {
 
-    // return d3.behavior.drag()
-    // .origin(function() { 
-    //     var t = d3.select(this);
-    //     return {x: t.attr("x") + d3.transform(t.attr("transform")).translate[0],
-    //             y: t.attr("y") + d3.transform(t.attr("transform")).translate[1]};
-    // })
-    // .on("drag", function(d,i) {
-    //     var left = d3.event.x
-    //     if (left + groupWidth + strokeWidth > svgWidth) {
-    //         left = svgWidth - groupWidth - strokeWidth
-    //     } else if (d3.event.x < 0) {
-    //         left = 0
-    //     }
-    //     var top = d3.event.y
-    //     if (top + groupHeight + strokeWidth > svgHeight) {
-    //       top = svgHeight - groupHeight - strokeWidth
-    //     } else if (d3.event.y < 0) {
-    //       top = 0
-    //     }
-    //     d3.select(this).attr("transform", function(d,i){
-    //         return "translate(" + [ left,top ] + ")"
-    //     })
-    // });
-
     return d3.behavior.drag()
         .origin(function (d) {
             return d
@@ -214,22 +190,36 @@ function getDragBehavior(force) {
         .on("dragend", dragend)
 
     function dragstart(d) {
-        // d.fixed = true;
         d3.event.sourceEvent.stopPropagation()
         d3.select(this).classed("dragging", true)
         force.start()
     }
 
     function dragging(d) {
-        d.x = d3.event.x
-        d.y = d3.event.y
+
+        var tempX = d3.event.x;
+        if (tempX + getNodeImageSize(d) > globalWidth) {
+            tempX = globalWidth - getNodeImageSize(d) / 2
+        }
+
+        if (tempX <= getNodeImageSize(d) / 2) {
+            tempX = getNodeImageSize(d) / 2
+        }
+
+        var tempY = d3.event.y
+        if (tempY + getNodeImageSize(d) + 20 > globalHeight) {
+            tempY = globalHeight - getNodeImageSize(d)
+        }
+
+        if (tempY <= getNodeImageSize(d) / 2) {
+            tempY = getNodeImageSize(d) / 2
+        }
+
+        d.x = tempX
+        d.y = tempY
     }
 
     function dragend(d) {
-        // if (d.connectTo == "hitron") {
-        //     d.x = tpOption.width
-        //     d.y = tpOption.height
-        // }
         d3.select(this).classed("dragging", false)
     }
 }
@@ -426,9 +416,9 @@ Topology.prototype.update = function () {
             }
             return getImage(device_type)
         })
-        .on('click', function (node) {
-            // nodeClick(node, true)
-        })
+        // .on('click', function (node) {
+        //     nodeClick(node, true)
+        // })
 
         // 添加圆形（显示描边）
         // nodeEnter.append("svg:circle")
@@ -557,10 +547,9 @@ Topology.prototype.update = function () {
                 }
                 return "hidden"
             })
-            .attr("outline", "none")
-            .on('click', function (node) {
-                // nodeClick(node, true)
-            })
+            // .on('click', function (node) {
+            //     nodeClick(node, true)
+            // })
 
     })
 
@@ -808,9 +797,9 @@ function updateNodeFrame() {
                 return "translate(" + d.x + "," + d.y + ")"
             })
             .attr("cx", function(d) { 
-                return d.x = Math.max(getNodeImageSize(d), Math.min(globalWidth - getNodeImageSize(d), d.x)); }) // 限制最大拖动范围
+                return d.x = Math.max(getNodeImageSize(d), Math.min(globalWidth - getNodeImageSize(d)/2, d.x)); }) // 限制最大拖动范围
             .attr("cy", function(d) { 
-                return d.y = Math.max(getNodeImageSize(d), Math.min(globalHeight - getNodeImageSize(d), d.y)); // 限制最大拖动范围
+                return d.y = Math.max(getNodeImageSize(d), Math.min(globalHeight - getNodeImageSize(d)/2, d.y)); // 限制最大拖动范围
              });
 
         _g_lines.select("line")
