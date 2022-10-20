@@ -1,29 +1,55 @@
 <!DOCTYPE html>
-<html>
 
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <link href="styles/style.css" rel="stylesheet">
-    <link href="https://fonts.font.im/css?family=Open+Sans" rel="stylesheet" type="text/css">
-    <title>测试页面</title>
+    <!--    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.v2.js?2.9.1"></script>-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/index.css">
+    <title>网络拓扑图</title>
+
 </head>
-
 <body>
-    <h1>hello</h1>
-    <img src="images/firefox-icon.png" alt="Firefox 标志：一只盘旋在地球上的火狐">
-    <p>Mozilla 是一个全球社区，这里聚集着来自五湖四海的</p>
-    <ul>
-        <li>技术人员</li>
-        <li>思考者</li>
-        <li>建造者</li>
-    </ul>
-    <p>我们致力于...</p>
+<!-- <input type="button" value="Click Me To Change" onclick=changeItem()> -->
 
-    <a href="https://www.mozilla.org/zh-CN/about/manifesto/">Mozilla 宣言</a>
+<div id="star"></div>
+<div id="tpContainer" style="overflow: hidden;"></div>
 
-    <button>切换用户</button>
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script src="js/d3.v3.min.js"></script>
+<script src="js/index.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/themeUtils.js"></script>
 
-    <script src="scripts/main.js" defer></script>
+
+<script>
+
+    document.οncοntextmenu=function(e){
+        e.preventDefault();
+    };
+
+    // if (window.innerWidth / window.innerHeight > 0.8) {
+        // document.getElementsByTagName("body")[0].setAttribute("style", "background:linear-gradient(to bottom, #0F1438, #3C254C);")
+        document.getElementsByTagName("body")[0].setAttribute("style", "background: #f1f2f5")
+    // } else {
+        // document.getElementsByTagName("body")[0].setAttribute("style", "background: url(\"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1594977744695&di=733bed35b27b4ae4015ea6b53a311dcc&imgtype=0&src=http%3A%2F%2Fhbimg.huabanimg.com%2F59eae52650b3d5d937a2e8baaa51c46e779a1ae714d560-wJzDD3_fw658\"); background-repeat: no-repeat; background-attachment:fixed; background-position:center; background-size:100% 100%;")
+    // }
+
+    var boolNodeChange = false
+    function changeItem() {
+        var needChangeTo1 =  '84:0B:7C:E9:72:00'
+        var needChangeTo2 =  '30:b7:d4:5d:3a:64'
+        var nodeId = '3c:15:c2:bc:52:4e'
+        if (boolNodeChange) {
+            changeNodeConnectTo(nodeId, needChangeTo2)
+        } else {
+            changeNodeConnectTo(nodeId, needChangeTo1)
+        }
+        boolNodeChange = !boolNodeChange
+    }
+</script>
+
 </body>
 
 </html>
