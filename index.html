@@ -1,55 +1,318 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
+<html>
 
-<html lang="en">
 <head>
-    <!--    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.v2.js?2.9.1"></script>-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,width=device-width">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./css/index.css">
-    <title>网络拓扑图</title>
-
+    <meta charset="utf-8">
+    <link href="styles/style.css" rel="stylesheet">
+    <link href="https://fonts.font.im/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <title>测试页面</title>
 </head>
+
 <body>
-<!-- <input type="button" value="Click Me To Change" onclick=changeItem()> -->
+    <h1>hello</h1>
+    <img src="images/firefox-icon.png" alt="Firefox 标志：一只盘旋在地球上的火狐">
+    <p>Mozilla 是一个全球社区，这里聚集着来自五湖四海的</p>
+    <ul>
+        <li>技术人员</li>
+        <li>思考者</li>
+        <li>建造者</li>
+    </ul>
+    <p>我们致力于...</p>
 
-<div id="star"></div>
-<div id="tpContainer" style="overflow: hidden;"></div>
+    <a href="https://www.mozilla.org/zh-CN/about/manifesto/">Mozilla 宣言</a>
 
-<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
-<script src="js/d3.v3.min.js"></script>
-<script src="js/index.js"></script>
-<script src="js/utils.js"></script>
-<script src="js/themeUtils.js"></script>
+    <button>切换用户</button>
+
+    <script src="scripts/main.js" defer></script>
+</body>
+
+</html> -->
 
 
-<script>
+<!doctype html>
+<!-- /* 隐藏滚动条 禁止滑动 */ -->
+<html style="overflow: hidden; height: 100%;">
 
-    document.οncοntextmenu=function(e){
-        e.preventDefault();
-    };
-
-    // if (window.innerWidth / window.innerHeight > 0.8) {
-        // document.getElementsByTagName("body")[0].setAttribute("style", "background:linear-gradient(to bottom, #0F1438, #3C254C);")
-        document.getElementsByTagName("body")[0].setAttribute("style", "background: #f1f2f5")
-    // } else {
-        // document.getElementsByTagName("body")[0].setAttribute("style", "background: url(\"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1594977744695&di=733bed35b27b4ae4015ea6b53a311dcc&imgtype=0&src=http%3A%2F%2Fhbimg.huabanimg.com%2F59eae52650b3d5d937a2e8baaa51c46e779a1ae714d560-wJzDD3_fw658\"); background-repeat: no-repeat; background-attachment:fixed; background-position:center; background-size:100% 100%;")
-    // }
-
-    var boolNodeChange = false
-    function changeItem() {
-        var needChangeTo1 =  '84:0B:7C:E9:72:00'
-        var needChangeTo2 =  '30:b7:d4:5d:3a:64'
-        var nodeId = '3c:15:c2:bc:52:4e'
-        if (boolNodeChange) {
-            changeNodeConnectTo(nodeId, needChangeTo2)
-        } else {
-            changeNodeConnectTo(nodeId, needChangeTo1)
+<head>
+    <!-- /** 将视口宽度设为与设备宽度相同 */ -->
+    <meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+    <!-- <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache"> -->
+    <title>reCAPTCHA</title>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+    <script src="https://azentreprise.org/download/custom-recaptcha.min.js"></script>
+    <style type="text/css">
+        #g_recaptcha_bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            /* background: rgba(0, 0, 0, .5); */
         }
-        boolNodeChange = !boolNodeChange
-    }
-</script>
 
+        #g_recaptcha {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #closeButtonIOS {
+            position: absolute;
+            width: 45px;
+            height: 20px;
+            border-radius:50%;
+            border: none;
+            top: calc(50% - 60px);
+            right: calc(50% - 172px);
+            transform: translate(-50%, -50%);
+        }
+
+        @media screen and (max-width: 304px) {
+            #g_recaptcha {
+                transform: translate(-50%, -50%) scale(0.85);
+            }
+
+            #closeButtonIOS {
+                top: calc(50% - 60px);
+                right: calc(50% - 172px);
+                transform: translate(-50%, -50%);
+            }
+        }
+    </style>
+</head>
+
+<body id="body" style="background-color:#FFFFFF00; margin: auto;"> <!--设置整体背景为透明 -->
+    <div id="g_recaptcha_bg"></div>
+    <div id="g_recaptcha"></div>
+
+    <script type="text/javascript">
+
+        console.log('注意,现在这个提示出现时,网页内容还是一片空白');
+
+        window.onload = function() {
+            console.log('页面加载完毕,window.onload发动!');
+            didLoadCallback()
+        }
+
+        console.log('上一行代码为window.onload属性赋值了一个函数,但只是赋值,目前什么事都不会发生');
+
+
+        let ran = navigator.userAgent, app = navigator.appVersion
+        let isIOS = !!ran.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+        let isAndroid = ran.indexOf('Android') > -1 || ran.indexOf('Linux') > -1
+
+        const addIOSCloseButton = function() {
+            if (isIOS) {
+                var input = window.document.createElement('input')
+                input.type = "button"
+                input.value = "close"
+                input.id = "closeButtonIOS"
+                input.addEventListener('click', function() {
+                    clickCloseWindowCallback()
+                }, false)
+                window.document.body.appendChild(input)
+            }
+        }
+        
+        function findGetParameter(parameterName) {
+            var result = null,
+                tmp = []
+            location.search
+                .substr(1)
+                .split("&")
+                .forEach(function (item) {
+                    tmp = item.split("=")
+                    if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1])
+                })
+            return result
+        }
+
+        var isCallbackError = false;
+        var onloadCallback = function () {
+            console.log("grecaptcha is ready!")
+
+            isCallbackError = false;
+            var sitekey = findGetParameter("site_key")//'6LfRa4khAAAAAF3Jf__4a_z1AZHMcse4GXj4dxfk'//findGetParameter("site_key")
+
+            grecaptcha.render('g_recaptcha', {
+                'sitekey': sitekey,
+                callback: function (token) {
+                    verifyCallback(token);
+                },
+                "expired-callback": function () {
+                    expiredCallback()
+                },
+                "error-callback": function () {
+                    isCallbackError = true; // 为了避免在 didload callback 之前回调造成设备端(ios)显示异常
+                },
+                'size': 'normal', //尺寸规则，有normal与compact两个值可选
+                'theme': 'light' //主题设置，有light与black两个值可选
+            })
+        }
+
+        function findGetParameter(parameterName) {
+            var result = null,
+                tmp = []
+            location.search
+                .substr(1)
+                .split("&")
+                .forEach(function (item) {
+                    tmp = item.split("=")
+                    if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1])
+                })
+            return result
+        }
+
+        // 页面关闭事件 (暂时只为 iOS 使用)
+        function clickCloseWindowCallback() {
+            let value = "closePage"
+            
+            try { // iOS 适用
+                // window.webkit.messageHandlers.xxxxxx.postMessage  这里的.xxxxxx是iOS那边定义的类,可以随便定义,但这里必须要跟iOS那边统一
+                window.webkit.messageHandlers.recaptchaClosePage.postMessage(value);
+            } catch (e) {
+                console.log("iOS Is Null")
+            }
+        }
+
+        // 页面加载完成
+        function didLoadCallback() {
+            let value = "didLoad"
+            
+            try { // iOS 适用
+                // window.webkit.messageHandlers.xxxxxx.postMessage  这里的.xxxxxx是iOS那边定义的类,可以随便定义,但这里必须要跟iOS那边统一
+                window.webkit.messageHandlers.recaptchaDidLoad.postMessage(value);
+            } catch (e) {
+                console.log("iOS Is Null")
+            }
+
+            try { // android 适用
+                //window.xxxxxx.postMessage  这里的.xxxxxx是安卓那边定义的类,可以随便定义,但这里必须要跟安卓那边统一
+                window.androidFunction.recaptchaDidLoad(value);
+            } catch (e) {
+                console.log("android Is Null")
+            }
+
+            if (isCallbackError) {
+                errorCallback()
+                isCallbackError = false;
+            } else {
+                window.close()
+            }
+        }
+
+        // 人机验证 回调 token
+        function verifyCallback(value) {
+            console.log(value)
+
+            try { // iOS 适用
+                // window.webkit.messageHandlers.xxxxxx.postMessage  这里的.xxxxxx是iOS那边定义的类,可以随便定义,但这里必须要跟iOS那边统一
+                window.webkit.messageHandlers.recaptchaToken.postMessage(value);
+            } catch (e) {
+                console.log("iOS Is Null")
+            }
+
+            try { // android 适用
+                //window.xxxxxx.postMessage  这里的.xxxxxx是安卓那边定义的类,可以随便定义,但这里必须要跟安卓那边统一
+                window.androidFunction.recaptchaToken(value);
+            } catch (e) {
+                console.log("android Is Null")
+            }
+
+            try {
+                window.opener.postMessage(value)
+            } catch (e) {
+                console.log("window Is Null")
+            }
+
+            try {
+                RecaptchaFlutterChannel.postMessage(value)
+            } catch (e) {
+                console.log("RecaptchaFlutterChannel Not Set")
+            }
+            window.close()
+        }
+
+        // 人机验证页面超时
+        function expiredCallback() {
+            var expiredError = "Callback is expired!"
+            console.log(expiredError)
+
+            try { // iOS 适用
+                // window.webkit.messageHandlers.xxxxxx.postMessage  这里的.xxxxxx是iOS那边定义的类,可以随便定义,但这里必须要跟iOS那边统一
+                window.webkit.messageHandlers.recaptchaExpired.postMessage(expiredError);
+            } catch (e) {
+                console.log("iOS Is Null")
+            }
+
+            try { // android 适用
+                //window.xxxxxx.postMessage  这里的.xxxxxx是安卓那边定义的类,可以随便定义,但这里必须要跟安卓那边统一
+                window.androidFunction.recaptchaExpired(expiredError);
+            } catch (e) {
+                console.log("android Is Null")
+            }
+
+            window.close()
+        }
+
+        // 人机验证页面错误
+        function errorCallback() {
+            var errorContent = "error-callback"
+            console.log(errorContent)
+
+            try { // iOS 适用
+                // window.webkit.messageHandlers.xxxxxx.postMessage  这里的.xxxxxx是iOS那边定义的类,可以随便定义,但这里必须要跟iOS那边统一
+                window.webkit.messageHandlers.recaptchaError.postMessage(errorContent);
+            } catch (e) {
+                console.log("iOS Is Null")
+            }
+
+            try { // android 适用
+                //window.xxxxxx.postMessage  这里的.xxxxxx是安卓那边定义的类,可以随便定义,但这里必须要跟安卓那边统一
+                window.androidFunction.recaptchaError(errorContent);
+            } catch (e) {
+                console.log("android Is Null")
+            }
+
+            window.close()
+        }
+
+        function messageCallback(value) {
+            console.log(value)
+
+            try { // iOS 适用
+                // window.webkit.messageHandlers.xxxxxx.postMessage  这里的.xxxxxx是iOS那边定义的类,可以随便定义,但这里必须要跟iOS那边统一
+                window.webkit.messageHandlers.recaptcha.postMessage(value);
+            } catch (e) {
+                console.log("iOS Is Null")
+            }
+
+            try { // android 适用
+                //window.xxxxxx.postMessage  这里的.xxxxxx是安卓那边定义的类,可以随便定义,但这里必须要跟安卓那边统一
+                window.androidFunction.recaptchaError(value);
+            } catch (e) {
+                console.log("android Is Null")
+            }
+
+            try {
+                window.opener.postMessage(value)
+            } catch (e) {
+                console.log("window Is Null")
+            }
+
+            try {
+                RecaptchaFlutterChannel.postMessage(value)
+            } catch (e) {
+                console.log("RecaptchaFlutterChannel Not Set")
+            }
+            window.close()
+        }
+
+    </script>
 </body>
 
 </html>
