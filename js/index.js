@@ -221,6 +221,7 @@ function getDragBehavior(force) {
 
     function dragend(d) {
         d3.select(this).classed("dragging", false)
+        force.start()
     }
 }
 
@@ -386,7 +387,7 @@ Topology.prototype.update = function () {
         .call(this.force.drag)
 
     //添加拖拽行为
-    nodeEnter.call(getDragBehavior(this.force))
+    // nodeEnter.call(getDragBehavior(this.force))
 
     // let circle = nodeEnter.append("svg:circle")
     // setNodeCircle(circle)
@@ -793,14 +794,14 @@ function updateNodeFrame() {
         _g_nodes[0].y = globalHeight / 2;
         
         topology.graph.selectAll("g.node")
-            .attr("transform", function (d) {
+            .attr("cx", function(d) { 
+                return d.x = Math.max(getNodeImageSize(d), Math.min(globalWidth - getNodeImageSize(d), d.x)); }) // 限制最大拖动范围
+            .attr("cy", function(d) { 
+                return d.y = Math.max(getNodeImageSize(d), Math.min(globalHeight - getNodeImageSize(d), d.y)); // 限制最大拖动范围
+             })
+             .attr("transform", function (d) {
                 return "translate(" + d.x + "," + d.y + ")"
             })
-            .attr("cx", function(d) { 
-                return d.x = Math.max(getNodeImageSize(d), Math.min(globalWidth - getNodeImageSize(d)/2, d.x)); }) // 限制最大拖动范围
-            .attr("cy", function(d) { 
-                return d.y = Math.max(getNodeImageSize(d), Math.min(globalHeight - getNodeImageSize(d)/2, d.y)); // 限制最大拖动范围
-             });
 
         _g_lines.select("line")
             .attr("x1", function (d) {
