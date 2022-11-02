@@ -65,12 +65,12 @@ function Topology(option) {
         var target = d.target
         //未展开子节点与其子节点间距
         if (!source._expanded & isExpandeds(target)) {
-            return 60
+            return 80
         }
         if (!source._expanded) {
-            return 20
+            return 40
         }
-        var distance = 120
+        var distance = 100
         distance += distance * Math.random() * 0.5
         return distance
     }).charge(function (d) {
@@ -787,10 +787,10 @@ function setLinkLine(link) {
         .style("stroke-width", function (d) {
             var target = d.target
             if (isExtender(target)) {
-                return 2
+                return 3
             }
             if (isExpandeds(target)) {
-                return 1.5
+                return 2.2
             }
             return 0
         })
