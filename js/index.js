@@ -518,9 +518,9 @@ function setNodeLinearStroke(nodeEnter) {
             return getNodeImageSize(d) / 2
         })
         .attr('fill', function(d){
-            // if (isHostExtenderType(d) && d.status == "Offline") {
-            //     return themeLightGrayColor
-            // }
+            if (isHostExtenderType(d) && d.status == "Offline") {
+                return themeLightGrayColor
+            }
             return 'white'
         })
 }
