@@ -2734,6 +2734,64 @@
 		"timestamp": "1667360048",
 		"status_updatetime": "2022-11-01T08:17:43Z",
 		"wlsChannel": "36"
+	},
+	{
+		"hostName": "ARIA2210",
+		"macAddr": "74:9B:E8:A4:F1:48",
+		"ip": "192.168.0.63",
+		"ipv6": "",
+		"icon": "",
+		"deviceType": "11",
+		"status": "Online",
+		"status_updatetime": "2022-10-21T15:44:02+0800",
+		"connectType": "7",
+		"fwLevel": "4",
+		"pauseStatus": "Allowed",
+		"connectTo": "90:aa:c3:d4:fe:20",
+		"groupID": "1",
+		"groupMaster": "YES",
+		"hostID": "h749be8a4f148",
+		"userID": "",
+		"addressSource": "dhcp",
+		"rssi": "-29",
+		"wlsMode": "12",
+		"wlsChannel": "",
+		"tx": "30520461",
+		"rx": "222682",
+		"theroy_tx": "864",
+		"theroy_rx": "1201",
+		"fwlevel_updatetime": "",
+		"fingerprint": "1,3,6,12,15,28,42,43,212",
+		"TmFilter_URI": "/1/Device/Firewall/TimeFilter/h749be8a4f148",
+		"KwdFilter_URI": "/1/Device/Firewall/KwdFilter/h749be8a4f148",
+		"SrvFilter_URI": "/1/Device/Firewall/SrvFilter/h749be8a4f148",
+		"Firewall": {
+			"TimeFilter": {
+				"enable": "OFF",
+				"tz": "8",
+				"TmNumberOfEntries": "0",
+				"Tms_List": []
+			},
+			"KwdFilter": {
+				"enable": "OFF",
+				"KwdNumberOfEntries": "0",
+				"Kwds_List": []
+			},
+			"SrvFilter": {
+				"enable": "OFF",
+				"SrvNumberOfEntries": "0",
+				"Srvs_List": []
+			}
+		},
+		"Ssid": {
+			"ssidName": "fe38-Guest",
+			"band": "5G",
+			"authMode": "3",
+			"SecuMode": "2",
+			"encryptType": "3",
+			"primary": "NO",
+			"SSID_URI": "/1/Device/WiFi/SSIDs/3"
+		}
 	}, {
 		"hostName": "Galaxy-S8",
 		"macAddr": "dc:ef:ca:e1:78:b3",
@@ -2807,7 +2865,7 @@
 			"hiddenWepAtkip": "Display",
 			"txKey": "1"
 		},
-		"connectTo": "",
+		"connectTo": "74:9B:E8:A4:F1:48",
 		"timestamp": "1667372369",
 		"status_updatetime": "2022-11-01T09:46:49Z",
 		"wlsChannel": "36"

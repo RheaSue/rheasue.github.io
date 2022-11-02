@@ -775,7 +775,9 @@ function setLinkLine(link) {
             switch (connectType) {
                 case '1': // 2.4G -> dotted line
                     return '1.5, 5'
-                case '2', '7': // 5G/6G -> dash line
+                case '2': // 5G -> dotted line
+                    return '5, 5'
+                case '7': // 6G -> dash line
                     return '5, 5'
                 case '3': // ethernet -> solid line
                     return ''
@@ -790,7 +792,7 @@ function setLinkLine(link) {
                 return 3
             }
             if (isExpandeds(target)) {
-                return 2.2
+                return 2
             }
             return 0
         })
