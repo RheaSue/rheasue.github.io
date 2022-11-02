@@ -38,12 +38,12 @@
  */
  function getNodeImageSize(d) {
     var type = d.type
-    var width = 64
+    var width = 60
 
     if (d.deviceType == "hitron") {
         width = 70
     } else if (!isExtender(d)) {
-        width = 56
+        width = 50
     }
 
     if (!isExpandeds(d)) { //devices
@@ -141,7 +141,6 @@ function getConnectedDevicesNum(hostList, model) {
         // 非 gateway/extender 的 host
         // online 且 connectTo 匹配的才计数
         if (isExtender(item) == false &&
-            isHostExtenderType(item) == false &&
             item.status.toLowerCase() == "online" &&
             item.connectTo.toLowerCase() == model.macAddr.toLowerCase()) {
             count = count + 1;
