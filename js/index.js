@@ -403,7 +403,12 @@ Topology.prototype.update = function () {
         })
         .style('text-overflow', 'ellipsis')
         .style('white-space', 'nowrap')
-        .style('font-size', '14')
+        .style('font-size', function(d){
+            if (parseInt(d.type) == 0 || isHostExtenderType(d)) {
+                return '14'
+            }
+            return '12'
+        })
         .style('font-weight', '500')
         .style('font-family', 'Helvetica')
         .style('fill', themeGrayColor) // 文字颜色
