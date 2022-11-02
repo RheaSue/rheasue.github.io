@@ -1,8 +1,90 @@
 {
-    "errCode": "000",
-    "errMsg": "",
-    "HostNumberOfEntries": "23",
-    "timestamp": "1665467895",
+    "networkName": "1B40",
+	"networkMac": "mac:f81d0f8c1b40",
+	"networkModelImageName": "sm_coda4",
+	"devices": [
+		{
+			"device_id": "mac:64777de01c60",
+			"user_id": "b477ecdc-88cd-4828-889c-d4acecc4c6d9",
+			"device_name": "1C60",
+			"hw_model": "CODA-4582-RES",
+			"created_at": "2022-10-14T03:16:21.42Z",
+			"updated_at": "2022-10-14T03:16:21.42Z",
+			"home_id": "5c62c627-d6a5-4da4-afd6-695cbb456c81"
+		},
+		{
+			"device_id": "mac:840b7ce97200",
+			"user_id": "b477ecdc-88cd-4828-889c-d4acecc4c6d9",
+			"device_name": "720000",
+			"hw_model": "CODA-4589-ONE",
+			"created_at": "2022-09-19T08:12:43.084Z",
+			"updated_at": "2022-09-19T08:12:43.084Z",
+			"home_id": "c75939bf-09cd-4210-a286-35dd9cb952f7"
+		},
+		{
+			"device_id": "mac:f81d0f8c1b40",
+			"user_id": "b477ecdc-88cd-4828-889c-d4acecc4c6d9",
+			"device_name": "1B40",
+			"hw_model": "CODA-4582",
+			"created_at": "2022-09-29T09:24:51.457Z",
+			"updated_at": "2022-09-29T09:24:51.457Z",
+			"home_id": "75d85acc-bb0e-4da2-8c5b-4012b911755d"
+		},
+		{
+			"device_id": "mac:749be8a4f950",
+			"user_id": "b477ecdc-88cd-4828-889c-d4acecc4c6d9",
+			"device_name": "1c60aria",
+			"hw_model": "ARIA2210",
+			"created_at": "2022-10-31T06:04:03.774Z",
+			"updated_at": "2022-10-31T06:04:03.774Z",
+			"home_id": "5c62c627-d6a5-4da4-afd6-695cbb456c81"
+		},
+		{
+			"device_id": "mac:749be8a4ef28",
+			"user_id": "b477ecdc-88cd-4828-889c-d4acecc4c6d9",
+			"device_name": "7200aria",
+			"hw_model": "ARIA2210",
+			"created_at": "2022-10-31T07:23:58.313Z",
+			"updated_at": "2022-10-31T07:23:58.313Z",
+			"home_id": "c75939bf-09cd-4210-a286-35dd9cb952f7"
+		},
+		{
+			"device_id": "mac:ac202e79f4d0",
+			"user_id": "b477ecdc-88cd-4828-889c-d4acecc4c6d9",
+			"device_name": "F4D0-SAM",
+			"hw_model": "CODA-4582",
+			"created_at": "2022-10-11T07:45:43.801Z",
+			"updated_at": "2022-10-11T07:45:43.801Z",
+			"home_id": "2d2cf951-e545-4ed5-8d1f-d2a2da091915"
+		},
+		{
+			"device_id": "mac:90aac3d4fe80",
+			"user_id": "b477ecdc-88cd-4828-889c-d4acecc4c6d9",
+			"device_name": "SW5-3411",
+			"hw_model": "ARIA3411",
+			"created_at": "2022-10-18T09:09:08.719Z",
+			"updated_at": "2022-10-18T09:09:08.719Z",
+			"home_id": "7f79ba23-a642-49e3-9525-1e10fac46c67"
+		},
+		{
+			"device_id": "mac:fc777b3bb670",
+			"user_id": "b477ecdc-88cd-4828-889c-d4acecc4c6d9",
+			"device_name": "Office",
+			"hw_model": "CODA-4589-CGO",
+			"created_at": "2022-06-06T11:12:03.773Z",
+			"updated_at": "2022-06-06T11:12:03.773Z",
+			"home_id": "2328014b-7c46-4c95-ba37-d15428144180"
+		},
+		{
+			"device_id": "mac:90aac3d4fe68",
+			"user_id": "b477ecdc-88cd-4828-889c-d4acecc4c6d9",
+			"device_name": "ARIA341111111",
+			"hw_model": "ARIA3411",
+			"created_at": "2022-09-15T09:07:56.087Z",
+			"updated_at": "2022-09-15T09:07:56.087Z",
+			"home_id": "3497b580-a78d-416a-92af-dcfb61cc2ee0"
+		}
+	],
     "Hosts_List": [
         {
             "hostName": "HT-EMN3",

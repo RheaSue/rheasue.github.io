@@ -1,0 +1,307 @@
+{
+    "errCode": "000",
+    "errMsg": "",
+    "HostNumberOfEntries": "4",
+    "timestamp": "1666339121",
+    "Hosts_List": [
+        {
+            "hostName": "iPhoneXRv14.0",
+            "macAddr": "FC:18:3C:34:C5:BB",
+            "ip": "192.168.0.14",
+            "ipv6": "",
+            "icon": "",
+            "deviceType": "1",
+            "status": "Online",
+            "status_updatetime": "2022-10-21T15:40:11+0800",
+            "connectType": "1",
+            "fwLevel": "4",
+            "pauseStatus": "Allowed",
+            "connectTo": "90:aa:c3:d4:fe:38",
+            "groupID": "0",
+            "groupMaster": "NO",
+            "hostID": "hfc183c34c5bb",
+            "userID": "",
+            "addressSource": "dhcp",
+            "rssi": "-45",
+            "wlsMode": "6",
+            "wlsChannel": "",
+            "tx": "30198473",
+            "rx": "40820",
+            "theroy_tx": "780",
+            "theroy_rx": "702",
+            "fwlevel_updatetime": "",
+            "fingerprint": "1,121,3,6,15,114,119,252",
+            "TmFilter_URI": "/1/Device/Firewall/TimeFilter/hfc183c34c5bb",
+            "KwdFilter_URI": "/1/Device/Firewall/KwdFilter/hfc183c34c5bb",
+            "SrvFilter_URI": "/1/Device/Firewall/SrvFilter/hfc183c34c5bb",
+            "Firewall": {
+                "TimeFilter": {
+                    "enable": "OFF",
+                    "tz": "8",
+                    "TmNumberOfEntries": "1",
+                    "Tms_List": [
+                        {
+                            "blockedWeekdays": "0001110",
+                            "tacStartHour": "09",
+                            "tacStartMin": "57",
+                            "tacEndHour": "11",
+                            "tacEndMin": "45",
+                            "blockAllTime": "NO"
+                        }
+                    ]
+                },
+                "KwdFilter": {
+                    "enable": "OFF",
+                    "KwdNumberOfEntries": "0",
+                    "Kwds_List": []
+                },
+                "SrvFilter": {
+                    "enable": "OFF",
+                    "SrvNumberOfEntries": "0",
+                    "Srvs_List": []
+                }
+            },
+            "Ssid": {
+                "ssidName": "fe38",
+                "band": "5G",
+                "authMode": "3",
+                "SecuMode": "2",
+                "encryptType": "3",
+                "primary": "YES",
+                "SSID_URI": "/1/Device/WiFi/SSIDs/1"
+            }
+        },
+        {
+            "hostName": "iPhone-14-2",
+            "macAddr": "70:B3:06:D0:D4:B7",
+            "ip": "192.168.0.107",
+            "ipv6": "",
+            "icon": "",
+            "deviceType": "1",
+            "status": "Online",
+            "status_updatetime": "2022-10-21T15:57:32+0800",
+            "connectType": "2",
+            "fwLevel": "4",
+            "pauseStatus": "Allowed",
+            "connectTo": "90:aa:c3:d4:fe:38",
+            "groupID": "0",
+            "groupMaster": "NO",
+            "hostID": "h70b306d0d4b8",
+            "userID": "",
+            "addressSource": "dhcp",
+            "rssi": "",
+            "wlsMode": "-1",
+            "wlsChannel": "",
+            "tx": "",
+            "rx": "",
+            "theroy_tx": "",
+            "theroy_rx": "",
+            "fwlevel_updatetime": "",
+            "fingerprint": "1,121,3,6,15,108,114,119,252",
+            "TmFilter_URI": "/1/Device/Firewall/TimeFilter/h70b306d0d4b8",
+            "KwdFilter_URI": "/1/Device/Firewall/KwdFilter/h70b306d0d4b8",
+            "SrvFilter_URI": "/1/Device/Firewall/SrvFilter/h70b306d0d4b8",
+            "Firewall": {
+                "TimeFilter": {
+                    "enable": "OFF",
+                    "tz": "8",
+                    "TmNumberOfEntries": "0",
+                    "Tms_List": []
+                },
+                "KwdFilter": {
+                    "enable": "OFF",
+                    "KwdNumberOfEntries": "0",
+                    "Kwds_List": []
+                },
+                "SrvFilter": {
+                    "enable": "OFF",
+                    "SrvNumberOfEntries": "0",
+                    "Srvs_List": []
+                }
+            },
+            "Ssid": {
+                "ssidName": "fe38",
+                "band": "5G",
+                "authMode": "3",
+                "SecuMode": "2",
+                "encryptType": "3",
+                "primary": "YES",
+                "SSID_URI": "/1/Device/WiFi/SSIDs/1"
+            }
+        },
+        {
+            "hostName": "iPhone-14",
+            "macAddr": "70:B3:06:D0:D4:B8",
+            "ip": "192.168.0.107",
+            "ipv6": "",
+            "icon": "",
+            "deviceType": "1",
+            "status": "Offline",
+            "status_updatetime": "2022-10-21T15:57:32+0800",
+            "connectType": "2",
+            "fwLevel": "4",
+            "pauseStatus": "Allowed",
+            "connectTo": "90:aa:c3:d4:fe:38",
+            "groupID": "0",
+            "groupMaster": "NO",
+            "hostID": "h70b306d0d4b8",
+            "userID": "",
+            "addressSource": "dhcp",
+            "rssi": "",
+            "wlsMode": "-1",
+            "wlsChannel": "",
+            "tx": "",
+            "rx": "",
+            "theroy_tx": "",
+            "theroy_rx": "",
+            "fwlevel_updatetime": "",
+            "fingerprint": "1,121,3,6,15,108,114,119,252",
+            "TmFilter_URI": "/1/Device/Firewall/TimeFilter/h70b306d0d4b8",
+            "KwdFilter_URI": "/1/Device/Firewall/KwdFilter/h70b306d0d4b8",
+            "SrvFilter_URI": "/1/Device/Firewall/SrvFilter/h70b306d0d4b8",
+            "Firewall": {
+                "TimeFilter": {
+                    "enable": "OFF",
+                    "tz": "8",
+                    "TmNumberOfEntries": "0",
+                    "Tms_List": []
+                },
+                "KwdFilter": {
+                    "enable": "OFF",
+                    "KwdNumberOfEntries": "0",
+                    "Kwds_List": []
+                },
+                "SrvFilter": {
+                    "enable": "OFF",
+                    "SrvNumberOfEntries": "0",
+                    "Srvs_List": []
+                }
+            },
+            "Ssid": {
+                "ssidName": "fe38",
+                "band": "5G",
+                "authMode": "3",
+                "SecuMode": "2",
+                "encryptType": "3",
+                "primary": "YES",
+                "SSID_URI": "/1/Device/WiFi/SSIDs/1"
+            }
+        },
+        {
+            "hostName": "testHost",
+            "macAddr": "74:9B:E8:A4:F1:48",
+            "ip": "192.168.0.63",
+            "ipv6": "",
+            "icon": "",
+            "deviceType": "5",
+            "status": "Online",
+            "status_updatetime": "2022-10-21T15:44:02+0800",
+            "connectType": "7",
+            "fwLevel": "4",
+            "pauseStatus": "Allowed",
+            "connectTo": "90:aa:c3:d4:fe:38",
+            "groupID": "74:9B:E8:A4:F1:48",
+            "groupMaster": "NO",
+            "hostID": "h749be8a4f148",
+            "userID": "",
+            "addressSource": "dhcp",
+            "rssi": "-29",
+            "wlsMode": "12",
+            "wlsChannel": "",
+            "tx": "30520461",
+            "rx": "222682",
+            "theroy_tx": "864",
+            "theroy_rx": "1201",
+            "fwlevel_updatetime": "",
+            "fingerprint": "1,3,6,12,15,28,42,43,212",
+            "TmFilter_URI": "/1/Device/Firewall/TimeFilter/h749be8a4f148",
+            "KwdFilter_URI": "/1/Device/Firewall/KwdFilter/h749be8a4f148",
+            "SrvFilter_URI": "/1/Device/Firewall/SrvFilter/h749be8a4f148",
+            "Firewall": {
+                "TimeFilter": {
+                    "enable": "OFF",
+                    "tz": "8",
+                    "TmNumberOfEntries": "0",
+                    "Tms_List": []
+                },
+                "KwdFilter": {
+                    "enable": "OFF",
+                    "KwdNumberOfEntries": "0",
+                    "Kwds_List": []
+                },
+                "SrvFilter": {
+                    "enable": "OFF",
+                    "SrvNumberOfEntries": "0",
+                    "Srvs_List": []
+                }
+            },
+            "Ssid": {
+                "ssidName": "fe38-Guest",
+                "band": "5G",
+                "authMode": "3",
+                "SecuMode": "2",
+                "encryptType": "3",
+                "primary": "NO",
+                "SSID_URI": "/1/Device/WiFi/SSIDs/3"
+            }
+        },
+        {
+            "hostName": "testHost2",
+            "macAddr": "64:77:7D:FF:FB:90",
+            "ip": "192.168.0.191",
+            "ipv6": "",
+            "icon": "",
+            "deviceType": "6",
+            "status": "Online",
+            "status_updatetime": "2022-10-21T15:51:31+0800",
+            "connectType": "3",
+            "fwLevel": "4",
+            "pauseStatus": "Allowed",
+            "connectTo": "90:aa:c3:d4:fe:38",
+            "groupID": "64:77:7D:FF:FB:90",
+            "groupMaster": "YES",
+            "hostID": "h64777dfffb90",
+            "userID": "",
+            "addressSource": "dhcp",
+            "rssi": "",
+            "wlsMode": "-1",
+            "wlsChannel": "",
+            "tx": "",
+            "rx": "",
+            "theroy_tx": "",
+            "theroy_rx": "",
+            "fwlevel_updatetime": "1666338782",
+            "fingerprint": "1,3,6,12,15,28,42",
+            "TmFilter_URI": "/1/Device/Firewall/TimeFilter/h64777dfffb90",
+            "KwdFilter_URI": "/1/Device/Firewall/KwdFilter/h64777dfffb90",
+            "SrvFilter_URI": "/1/Device/Firewall/SrvFilter/h64777dfffb90",
+            "Firewall": {
+                "TimeFilter": {
+                    "enable": "OFF",
+                    "tz": "8",
+                    "TmNumberOfEntries": "0",
+                    "Tms_List": []
+                },
+                "KwdFilter": {
+                    "enable": "OFF",
+                    "KwdNumberOfEntries": "0",
+                    "Kwds_List": []
+                },
+                "SrvFilter": {
+                    "enable": "OFF",
+                    "SrvNumberOfEntries": "0",
+                    "Srvs_List": []
+                }
+            },
+            "Ssid": {
+                "ssidName": "fe38-6",
+                "band": "6G",
+                "authMode": "0",
+                "SecuMode": "0",
+                "encryptType": "0",
+                "primary": "YES",
+                "SSID_URI": "/1/Device/WiFi/SSIDs/7"
+            }
+        }
+    ]
+}

@@ -1,78 +1,16 @@
-var imgMap = {
+// 所有处理过的原始数据
+var allHandledData = {}
 
-
-    'device_type_hitron': 'img/clouds/add_gateway.png',
-    'device_type_0': 'img/clouds/dl_other.png',
-    'device_type_1': 'img/clouds/dl_smartphone.png',
-    'device_type_2': 'img/clouds/dl_computer.png',
-    'device_type_3': 'img/clouds/dl_printer.png',
-    'device_type_4': 'img/clouds/add_extender_emn3.png',
-    'device_type_5': 'img/clouds/dl_tablet.png',
-    'device_type_6': 'img/clouds/dl_game.png',
-    'device_type_7': 'img/clouds/dl_home.png',
-    'device_type_8': 'img/clouds/dl_TV.png',
-    'device_type_9': 'img/clouds/dl_thermostat.png',
-    'device_type_10': 'img/clouds/dl_media_box.png',
-    'device_type_11': 'img/clouds/add_extender_aria2210.png',
-    'device_type_12': 'img/clouds/dl_watch.png',
-    'device_type_13': 'img/clouds/dl_doorbell.png',
-    'device_type_14': 'img/clouds/dl_camera.png',
-    'device_type_15': 'img/clouds/dl_smart_speaker.png',
-    'device_type_16': 'img/clouds/dl_smart_bulb.png',
-    'device_type_17': 'img/clouds/dl_smart_switch.png',
-    'device_type_18': 'img/clouds/dl_smart_lock.png',
-    'device_type_19': 'img/clouds/add_extender_aria3411.png',
-    'device_type_20': 'img/clouds/add_extender_aria2513.png',
-
-
-    'device_type_0_offline': 'img/clouds/dl_other_offline.png',
-    'device_type_1_offline': 'img/clouds/dl_smartphone_offline.png',
-    'device_type_2_offline': 'img/clouds/dl_computer_offline.png',
-    'device_type_3_offline': 'img/clouds/dl_printer_offline.png',
-    'device_type_4_offline': 'img/clouds/add_extender_emn3.png',
-    'device_type_5_offline': 'img/clouds/dl_tablet_offline.png',
-    'device_type_6_offline': 'img/clouds/dl_game_offline.png',
-    'device_type_7_offline': 'img/clouds/dl_home_offline.png',
-    'device_type_8_offline': 'img/clouds/dl_TV_offline.png',
-    'device_type_9_offline': 'img/clouds/dl_thermostat_offline.png',
-    'device_type_10_offline': 'img/clouds/dl_media_box_offline.png',
-    'device_type_11_offline': 'img/clouds/add_extender_aria2210.png',
-    'device_type_12_offline': 'img/clouds/dl_watch_offline.png',
-    'device_type_13_offline': 'img/clouds/dl_doorbell_offline.png',
-    'device_type_14_offline': 'img/clouds/dl_camera_offline.png',
-    'device_type_15_offline': 'img/clouds/dl_smart_speaker_offline.png',
-    'device_type_16_offline': 'img/clouds/dl_smart_bulb_offline.png',
-    'device_type_17_offline': 'img/clouds/dl_smart_switch_offline.png',
-    'device_type_18_offline': 'img/clouds/dl_smart_lock_offline.png',
-    'device_type_19_offline': 'img/clouds/add_extender_aria3411.png',
-    'device_type_20_offline': 'img/clouds/add_extender_aria2513.png',
-
-
-    'connect_type_1': 'img/clouds/connectiontype/ct_2.4G.png',
-    'connect_type_2': 'img/clouds/connectiontype/ct_5G.png',
-    'connect_type_4': 'img/clouds/connectiontype/ct_6G.png',
-    'connect_type_3': 'img/clouds/connectiontype/ct_ethernet.png',
-
-    'status_warning': 'img/clouds/status_warning.png',
-    'status_bedtime_off': 'img/clouds/status_bedtime_off.png',
-    'status_bedtime_on': 'img/clouds/status_bedtime_on.png',
-    'status_pause': 'img/clouds/status_pause.png',
-
-    'link-cut': 'img/clouds/link-cut.png',
-    'connection': 'img/clouds/dl_connection.png',
-    'normal_device': 'img/clouds/dl_normal_device.png',
-}
-
-//缓存图片数据源
+// 缓存图片数据源
 var imgViewMap = {}
 
-//所有子节点数据 key：connectTo value: 相同connectTo的所有数据数组
+// 所有子节点数据 key：connectTo value: 相同connectTo的所有数据数组
 var childData = {}
 
-//未展开节点数据集合
+// 未展开节点数据集合
 var expandeds = new Array()
 
-//中间节点id
+// 中间节点id
 var centerDataId = ""
 
 var dataModels = []
@@ -122,23 +60,23 @@ function Topology(option) {
         globalWidth = w;
         globalHeight = h;
 
-    this.force = d3.layout.force().linkDistance(function (d) {
+    this.force = d3.layout.force().gravity(0.05).linkDistance(function (d) {
         var source = d.source
         var target = d.target
         //未展开子节点与其子节点间距
         if (!source._expanded & isExpandeds(target)) {
-            return 80
+            return 60
         }
         if (!source._expanded) {
-            return 16
+            return 20
         }
-        var distance = 160
+        var distance = 120
         distance += distance * Math.random() * 0.5
         return distance
     }).charge(function (d) {
         //未展开子节点中其子节点大小
         if (!isExpandeds(d)) {
-            return -120
+            return -600
         }
         return -1200
     })
@@ -158,7 +96,7 @@ function Topology(option) {
     this.graph = this.vsg.append("g").attr("class", "graph")
 
     //添加缩放行为
-    // this.vsg.call(getZoomBehavior(this.graph))
+    this.vsg.call(getZoomBehavior(this.graph))
 }
 
 /**
@@ -198,22 +136,23 @@ function getDragBehavior(force) {
     function dragging(d) {
 
         var tempX = d3.event.x;
-        if (tempX + getNodeImageSize(d) > globalWidth) {
-            tempX = globalWidth - getNodeImageSize(d) / 2
-        }
+        // 控制拖动范围
+        // if (tempX + getNodeImageSize(d) > globalWidth) {
+        //     tempX = globalWidth - getNodeImageSize(d) / 2
+        // }
 
-        if (tempX <= getNodeImageSize(d) / 2) {
-            tempX = getNodeImageSize(d) / 2
-        }
+        // if (tempX <= getNodeImageSize(d) / 2) {
+        //     tempX = getNodeImageSize(d) / 2
+        // }
 
         var tempY = d3.event.y
-        if (tempY + getNodeImageSize(d) + 20 > globalHeight) {
-            tempY = globalHeight - getNodeImageSize(d)
-        }
+        // if (tempY + getNodeImageSize(d) + 20 > globalHeight) {
+        //     tempY = globalHeight - getNodeImageSize(d)
+        // }
 
-        if (tempY <= getNodeImageSize(d) / 2) {
-            tempY = getNodeImageSize(d) / 2
-        }
+        // if (tempY <= getNodeImageSize(d) / 2) {
+        //     tempY = getNodeImageSize(d) / 2
+        // }
 
         d.x = tempX
         d.y = tempY
@@ -221,7 +160,6 @@ function getDragBehavior(force) {
 
     function dragend(d) {
         d3.select(this).classed("dragging", false)
-        force.start()
     }
 }
 
@@ -335,9 +273,9 @@ Topology.prototype.removeChildNodes = function (id) {
  */
 Topology.prototype.update = function () {
 
-
     var lineNode = this.graph.selectAll("line.line")
         .data(this.links, function (d) {
+            console.log(d.target)
             return d.source.id + "-" + d.target.id
         })
         .attr("class", function (d) {
@@ -387,12 +325,15 @@ Topology.prototype.update = function () {
         .call(this.force.drag)
 
     //添加拖拽行为
-    // nodeEnter.call(getDragBehavior(this.force))
+    nodeEnter.call(getDragBehavior(this.force))
 
     // let circle = nodeEnter.append("svg:circle")
     // setNodeCircle(circle)
 
     //增加图片
+
+    setNodeLinearStroke(nodeEnter)
+
     nodeEnter.append("svg:image")
         .attr("x", function (d) {
             return -getNodeImageSize(d) / 2
@@ -400,63 +341,70 @@ Topology.prototype.update = function () {
         .attr("y", function (d) {
             return -getNodeImageSize(d) / 2
         })
-
         .attr("width", function (d) {
             return getNodeImageSize(d)
         })
         .attr("height", function (d) {
             return getNodeImageSize(d)
         })
+        .attr("rx", function (d) {
+            return getNodeImageSize(d) / 2
+        })
         .attr("xlink:href", function (d) {
-            var device_type = "device_type_" + d.deviceType
-            if (d.status == "Offline") {
-                device_type += "_offline"
+
+            var device_type;
+            if (d.deviceType == "hitron") {
+                device_type = "gateway_" + allHandledData.networkModelImageName
+            } else {
+                device_type = "device_type_" + d.deviceType
             }
-            if (!isExpandeds(d)) {
-                device_type = "normal_device";
-            }
+
+            // var device_type = "device_type_" + d.deviceType
+            // if (d.status == "Offline") {
+            //     device_type += "_offline"
+            // }
+            // if (!isExpandeds(d)) { // 未展开的灰色圆点
+            //     device_type = "normal_device";
+            // }
             return getImage(device_type)
         })
-        // .on('click', function (node) {
-        //     nodeClick(node, true)
-        // })
-
-        // 添加圆形（显示描边）
-        // nodeEnter.append("svg:circle")
-        // .attr("x", function (d) {
-        //     return -getNodeImageSize(d) / 2
-        // })
-        // .attr("y", function (d) {
-        //     return -getNodeImageSize(d) / 2
-        // })
-
-        // .attr("r", function (d) {
-        //     return getNodeImageSize(d) / 2
-        // })
-        // .attr("outline", "none")
-        // .style("fill", "none")
-        // .style("stroke", themeMinorColor["Hitron"])
-        // .style("stroke-width", function(d){
-        //     if (d.connectTo == "hitron") {
-        //         return "3"
-        //     }
-        //     return "0"
-        // });
+        .on('click', function (node) {
+            nodeClick(node, true)
+        })
 
 
-    // 添加文本
+    // 添加name
     nodeEnter.append("svg:text")
+        .attr("class", "hostNameText")
         .attr("x", function (d) {
-            return d.x + getNodeImageSize(d) / 2
+            return 0
         })
         .attr("y", function (d) {
             return getNodeImageSize(d) / 2 + 18
         })
+        .attr('overflow', 'hidden')
         .text(function (d) {
-            return getHostName(d)
+            var name = getHostName(d)
+            var bytesCount = 0;
+            for (var i = 0; i < name.length; i++) {
+                var c = name.charAt(i);
+                if (/^[\u0000-\u00ff]$/.test(c)) { // 匹配双字节
+                    bytesCount += 1;
+                } else {
+                    bytesCount += 2;
+                }
+                if (bytesCount >= 20) {
+                    // 限制文本显示最大长度为 20 个字节
+                    name = name.slice(0, i-1) + '...'
+                    break;
+                }
+            }
+            return name
         })
-        .attr("outline", "none")
-        .style('font-size', '12')
+        .style('text-overflow', 'ellipsis')
+        .style('white-space', 'nowrap')
+        .style('font-size', '14')
+        .style('font-weight', '500')
         .style('font-family', 'Helvetica')
         .style('fill', themeGrayColor) // 文字颜色
         .attr("text-anchor", "middle") // 文字居中
@@ -465,71 +413,31 @@ Topology.prototype.update = function () {
 
     // 插入文本背景色
     nodeEnter.insert("svg:rect", "text")
+        .attr("class", "textBgRect")
         .attr("x", function (d) {
-            return -d.bbox.width / 2 - d.bbox.height/2
+            return d.bbox.x - 8
         })
         .attr("y", function (d) {
-            return getNodeImageSize(d) / 2 + 8
+            return d.bbox.y - 2
         })
         .attr("outline", "none")
-        .attr("width", function(d){return d.bbox.width + d.bbox.height})
+        .attr("width", function(d){return d.bbox.width + 16})
         .attr("height", function(d){return d.bbox.height + 4})
         .attr("rx", function(d){return d.bbox.height/1.5})
         .style("fill", "white")
-
-    nodeEnter.each(function (d, i) {
-        var selection = d3.select(this)
-        var img = getStatuImg(d)
-
-        // 添加角标背景
-        selection.append("g").attr("class", "badge_bgView")
-        .append("circle")
-        .attr("transform", function (d) {
-            var width = parseFloat(24)
-            return 'translate(' + 1.1 * width + ', -24)'
-        })
-        .attr("r", 12)
-        .attr("visibility", function (d) {
-            let count = getConnectedDevicesNum(dataModels, d)
-            if (count > 0 && d.status != "Offline") {
-                return "visible"
-            }
-            return "hidden"
-        })
-        .attr("outline", "none")
-        .style("fill", themeMinorColor["Hitron"])
-        .style("stroke", "white")
-        .style("stroke-width", "2");
-
-        // 添加角标数字
-        selection.append("g").attr("class", "badge_number")
-        .append("text")
-        .attr("transform", function (d) {
-            var width = parseFloat(24)
-            return 'translate(' + 1.1 * width + ', -23)'
-        })
         .attr("visibility", function (d) {
             if (isExpandeds(d)) {
                 return "visible"
             }
             return "hidden"
         })
-        .text(function(d){
-            let count = getConnectedDevicesNum(dataModels, d)
-            if (count > 0 && d.status != "Offline") {
-                return count
-            } else {
-                return ''
-            }
-        })
-        .attr("outline", "none")
-        .attr("width", 22)
-        .attr("height", 22)
-        .style("fill", "white")
-        .style('font-size', '12')
-        .style('font-family', 'Helvetica')
-        .attr("text-anchor", "middle") // 文字居中
-        .attr("dominant-baseline", "middle") // 文字居中
+
+    // 添加数字角标
+    setBadgeNum(nodeEnter);
+
+    nodeEnter.each(function (d, i) {
+        var selection = d3.select(this)
+        var img = getStatuImg(d)
 
         selection.append("g").attr("class", "status_tip")
             .append("image")
@@ -548,9 +456,9 @@ Topology.prototype.update = function () {
                 }
                 return "hidden"
             })
-            // .on('click', function (node) {
-            //     nodeClick(node, true)
-            // })
+            .on('click', function (node) {
+                nodeClick(node, true)
+            })
 
     })
 
@@ -563,7 +471,115 @@ Topology.prototype.update = function () {
  * 返回 text 的 size
  */
 function getBB(selection) {
-    selection.each(function(d){ d.bbox = this.getBBox(); })
+    selection.each(function(d){ 
+        d.bbox = this.getBBox();
+        // d.bbox.width = d.bbox.width > getNodeImageSize(d) * 2 ? getNodeImageSize(d) * 2 : d.bbox.width;
+        // d.bbox.x = -d.bbox.width/2;
+    })
+}
+
+/**
+ * 添加渐变色描边
+ */
+function setNodeLinearStroke(nodeEnter) {
+    const defs = nodeEnter.append('defs')
+    const l1 = defs.append('linearGradient')
+        .attr('id', 'grd1')
+        .attr('x1', '0%')
+        .attr('y1', '0%')
+        .attr('x2', '0%')
+        .attr('y2', '100%')
+
+    l1.append('stop')
+        .attr("offset", '0%')
+        .attr('stop-color', '#00A3E0')
+
+    l1.append('stop')
+        .attr("offset", '100%')
+        .attr("stop-color", '#004C97')
+
+    nodeEnter.append('circle')
+        .attr("id", "imageBgCircle")
+        .attr("cx", 0)
+        .attr("cy", 0)
+        .attr("r", function (d) {
+            if (d.deviceType == "hitron") {
+                return getNodeImageSize(d) / 2 + 3
+            }
+            return 0
+        })
+        .attr('fill', 'url(#grd1)')
+
+    nodeEnter.append('circle')
+        .attr("id", "imageBgCircle")
+        .attr("cx", 0)
+        .attr("cy", 0)
+        .attr("r", function (d) {
+            return getNodeImageSize(d) / 2
+        })
+        .attr('fill', function(d){
+            // if (isHostExtenderType(d) && d.status == "Offline") {
+            //     return themeLightGrayColor
+            // }
+            return 'white'
+        })
+}
+
+/**
+ * 添加节点右上角角标
+ * 
+ */
+ function setBadgeNum(nodeEnter) {
+    // 添加角标背景
+    nodeEnter.append("circle")
+        .attr("class", "badgeView")
+        .attr("transform", function (d) {
+            var width = parseFloat(getNodeImageSize(d)/2.5)
+            return 'translate(' + width * (getNodeImageSize(d) / 60) + ',' + (-width) + ')'
+        })
+        .attr("r", 15)
+        .style("fill", themeMinorColor["Hitron"])
+        .style("stroke", "white")
+        .style("stroke-width", "2")
+        .attr("visibility", function (d) {
+            // 只有 gateway / extender 才会显示数字角标
+            let count = getConnectedDevicesNum(dataModels, d)
+                if (count > 0 && d._expanded == false && isExtender(d)) {
+                    return "visible"
+                }
+            return "hidden"
+        })
+        
+
+    // 添加角标数字
+    nodeEnter.append("text")
+        .attr("class", "badgeView")
+        .attr("transform", function (d) {
+            var width = parseFloat(getNodeImageSize(d)/2.5)
+            return 'translate(' + width * (getNodeImageSize(d) / 60) + ',' + (-width + 1) + ')'
+        })
+        .text(function (d) {
+            let count = getConnectedDevicesNum(dataModels, d)
+            return count
+        })
+        .attr("width", 22)
+        .attr("height", 22)
+        .style("fill", "white")
+        .style('font-size', '16')
+        .style('font-weight', 500)
+        .style('font-family', 'Helvetica')
+        .attr("text-anchor", "middle") // 文字居中
+        .attr("dominant-baseline", "middle") // 文字居中
+        .attr("visibility", function (d) {
+
+            // 只有 gateway / extender 才会显示数字角标
+            let count = getConnectedDevicesNum(dataModels, d)
+                if (count > 0 && d._expanded == false && isExtender(d)) {
+                    return "visible"
+                }
+
+            return "hidden"
+        })
 }
 
 /**
@@ -617,20 +633,21 @@ Topology.prototype.refresh = function () {
         .attr("y", function (d) {
             return -getNodeImageSize(d) / 2
         })
-
         .attr("width", function (d) {
+            if (!isExpandeds(d)) {
+                return 0
+            }
             return getNodeImageSize(d)
         })
         .attr("height", function (d) {
             return getNodeImageSize(d)
         })
         .attr("xlink:href", function (d) {
-            var device_type = "device_type_" + d.deviceType
-            if (d.status == "Offline") {
-                device_type += "_offline"
-            }
-            if (!isExpandeds(d)) {
-                device_type = "normal_device";
+            var device_type = "device_type_0";
+            if (d.deviceType == "hitron") {
+                device_type = "gateway_" + allHandledData.networkModelImageName
+            } else {
+                device_type = "device_type_" + d.deviceType
             }
             return getImage(device_type)
         })
@@ -638,20 +655,57 @@ Topology.prototype.refresh = function () {
     resultStatuImages
         .attr("visibility", function (d) {
             if (isExpandeds(d)) {
+                return "hidden"
+            }
+            return "hidden"
+        })
+
+    node.selectAll('#imageBgCircle')
+        .attr("visibility", function (d) {
+            if (isExpandeds(d)) {
                 return "visible"
             }
             return "hidden"
         })
 
-    node.selectAll('text')
-        .attr("x", function (d) {
-            return -getNodeImageSize(d) / 2
-        })
-        .attr("y", function (d) {
-            return -getNodeImageSize(d) / 2 - 8
-        })
-        .text(function (d) {
-            return getHostName(d)
+    node.selectAll('.hostNameText')
+    .attr("x", function (d) {
+        return 0
+    })
+    .attr("y", function (d) {
+        return getNodeImageSize(d) / 2 + 18
+    })
+    .text(function (d) {
+        return getHostName(d)
+    })
+    .call(getBB)
+
+
+    node.selectAll('.textBgRect')
+    .attr("x", function (d) {
+        return -d.bbox.width / 2 - d.bbox.height/2
+    })
+    .attr("y", function (d) {
+        return getNodeImageSize(d) / 2 + 8
+    })
+    .attr("width", function(d){return d.bbox.width + 16})
+    .attr("height", function(d){return d.bbox.height + 4})
+    .attr("rx", function(d){return d.bbox.height/1.5})
+    .style("fill", "white")
+    .attr("visibility", function (d) {
+        if (isExpandeds(d)) {
+            return "visible"
+        }
+        return "hidden"
+    })
+
+    node.selectAll('.badgeView')
+        .attr("visibility", function (d) {
+            let count = getConnectedDevicesNum(dataModels, d)
+            if (count > 0 && d._expanded == false) {
+                return "visible"
+            }
+            return "hidden"
         })
 
     node.exit().remove()
@@ -692,6 +746,12 @@ function setLinkLine(link) {
             if (target.status == "Offline") {
                 return themeLightGrayColor
             }
+            // return themeMinorColor['Hitron']
+            // band
+            var connectType = target.connectType
+            if (parseInt(connectType) == 1) { //2.4G
+                return statesYellowColor
+            }
             return themeMinorColor['Hitron']
         },)
         .style("stroke-dasharray", function (d) {
@@ -699,24 +759,26 @@ function setLinkLine(link) {
             if (target == null) {
                 return ''
             }
-            if (!isExpandeds(target)) {
-                return ''
-            }
+            // if (!isExpandeds(target)) {
+            //     return ''
+            // }
 
             if (target.status == "Offline") {
-                return '5, 2'
+                return '1.5, 5'
             }
-            if (isExtender(target)) {
-                return ''
-            }
+            // if (isExtender(target)) {
+            //     return ''
+            // }
 
             // band
             var connectType = target.connectType
             switch (connectType) {
-                case '1':
-                    return '2, 2'
-                case '2':
-                    return '5, 2'
+                case '1': // 2.4G -> dotted line
+                    return '1.5, 5'
+                case '2', '7': // 5G/6G -> dash line
+                    return '5, 5'
+                case '3': // ethernet -> solid line
+                    return ''
                 default:
                     return ''
             }
@@ -725,10 +787,10 @@ function setLinkLine(link) {
         .style("stroke-width", function (d) {
             var target = d.target
             if (isExtender(target)) {
-                return 1.5
+                return 2
             }
             if (isExpandeds(target)) {
-                return 1
+                return 1.5
             }
             return 0
         })
@@ -790,15 +852,15 @@ function updateNodeFrame() {
     topology.force.on("tick", function (x) {
 
         // 固定中心点位置
-        _g_nodes[0].x = globalWidth / 2;
-        _g_nodes[0].y = globalHeight / 2;
+        // _g_nodes[0].x = globalWidth / 2;
+        // _g_nodes[0].y = globalHeight / 2;
         
         topology.graph.selectAll("g.node")
-            .attr("cx", function(d) { 
-                return d.x = Math.max(getNodeImageSize(d), Math.min(globalWidth - getNodeImageSize(d), d.x)); }) // 限制最大拖动范围
-            .attr("cy", function(d) { 
-                return d.y = Math.max(getNodeImageSize(d), Math.min(globalHeight - getNodeImageSize(d), d.y)); // 限制最大拖动范围
-             })
+            // .attr("cx", function(d) { 
+            //     return d.x = Math.max(getNodeImageSize(d), Math.min(globalWidth - getNodeImageSize(d), d.x)); }) // 限制最大拖动范围
+            // .attr("cy", function(d) { 
+            //     return d.y = Math.max(getNodeImageSize(d), Math.min(globalHeight - getNodeImageSize(d), d.y)); // 限制最大拖动范围
+            //  })
              .attr("transform", function (d) {
                 return "translate(" + d.x + "," + d.y + ")"
             })
@@ -1063,7 +1125,7 @@ function expandNode(childData, node) {
         var updateNode = childNodes[i]
         var data = childData[updateNode.id]
         if (data != null) {
-            // nodeClick(updateNode, false)
+            nodeClick(updateNode, false)
             // return
         }
     }
@@ -1116,11 +1178,12 @@ function setRequestData() {
 
 //    url = 'https://oauth.hitroncloud.com/oauth2/auth?audience=&client_id=app-2Y6FnS5YjP3GbQdGhzVjyWUztc&max_age=0&nonce=lsxwtpewpgwdcrjgrbwhgzxz&redirect_uri=myhitron://oauth2Callback&response_type=code&scope=offline+openid&state=nbhjacofihqbgyzlgwqweuzr&prompt=login'
     ajax(url, header, function (d) {
-        var jsonData = JSON.parse(d)
+        var temp = JSON.parse(d)
+        var jsonData = handleAllData(temp)
         var hostList = jsonData.Hosts_List
-        if (hostList == null) {
-            return
-        }
+        // if (hostList == null) {
+        //     return
+        // }
         dataModels = hostList
         setTpData()
     }, 'GET')
@@ -1130,10 +1193,10 @@ function setRequestData() {
  * Topology数据赋值
  */
 function setTpData() {
-    if (dataModels.length == 0) {
-        return;
-    }
-    var data = formartRequestData(dataModels)
+    // if (dataModels.length == 0) {
+    //     return;
+    // }
+    var data = formatHostsData(dataModels)
     var nodes = data.nodes
     topology.addNodes(nodes)
     topology.addLinks(data.lines)
