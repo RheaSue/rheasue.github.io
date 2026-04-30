@@ -1,23 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Open App</title>
+
+<style>
+body {
+    font-family: -apple-system, BlinkMacSystemFont;
+    text-align: center;
+    padding: 40px;
+}
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+}
+</style>
 
 <script>
 function openApp() {
-    // 1. 尝试打开 App（Universal Link 会自动处理）
-    window.location.href = window.location.href;
+    const schemeURL = "fizzapp://install-guide";
 
-    // 2. 未安装 → 跳 App Store
+    // 尝试打开 App
+    window.location = schemeURL;
+
+    // 兜底：跳 App Store
     setTimeout(function () {
-        window.location.href = "https://apps.apple.com/app/id6467438244";
+        window.location = "https://apps.apple.com/app/idYOUR_APP_ID";
     }, 1500);
 }
 </script>
+
 </head>
 
-<body onload="openApp()">
-<p>Opening app...</p>
+<body>
+
+<h2>Opening your app...</h2>
+
+<p>If nothing happens, tap below:</p>
+
+<button onclick="openApp()">Open App</button>
+
+<script>
+window.onload = function () {
+    openApp();
+};
+</script>
+
 </body>
 </html>
