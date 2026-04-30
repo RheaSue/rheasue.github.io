@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appID": "com.hitrontech.szrd.fizz.wifi",
+        "paths": [
+          "/install",
+          "/install/*"
+        ]
+      }
+    ]
+  }
+}
