@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appID": "TEAMID.bundleid",
+        "paths": [
+          "/install-guide",
+          "/install/*"
+        ]
+      }
+    ]
+  }
+}
