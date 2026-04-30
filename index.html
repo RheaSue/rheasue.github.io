@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Open App</title>
+
+<script>
+function openApp() {
+    // 1. 尝试打开 App（Universal Link 会自动处理）
+    window.location.href = window.location.href;
+
+    // 2. 未安装 → 跳 App Store
+    setTimeout(function () {
+        window.location.href = "https://apps.apple.com/app/id6467438244";
+    }, 1500);
+}
+</script>
+</head>
+
+<body onload="openApp()">
+<p>Opening app...</p>
+</body>
+</html>
